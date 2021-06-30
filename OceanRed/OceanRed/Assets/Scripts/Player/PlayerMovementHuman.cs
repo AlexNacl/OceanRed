@@ -63,11 +63,17 @@ public class PlayerMovementHuman : MonoBehaviour
 	Vector3 pos1Climb;
 	Vector3 pos2Climb;
 
+	GameObject FOVEnabler;
+	GameObject Foreground;
+
 	void Start ()
 	{
 		input = GetComponent<InputControllScript>();
 		rigidBody = GetComponent<Rigidbody2D>();
 		bodyCollider = GetComponent<BoxCollider2D>();
+
+		FOVEnabler = GameObject.Find("FOVRight");
+		Foreground = GameObject.Find("Foreground");
 
 		originalXScale = transform.localScale.x;
 		playerHeight = bodyCollider.size.y;
@@ -318,6 +324,9 @@ public class PlayerMovementHuman : MonoBehaviour
 		pos1Climb = transform.position;
 		if(isHanging == true){
 			isClimbing = true;
+			FOVEnabler.SetActive(false);
+			Foreground.SetActive(false);
+			Foreground.SetActive(true);
 			//rigidBody.bodyType = RigidbodyType2D.Static;
 			if(changedPos == false){
 				pos2Climb.x += pos1Climb.x + (1f - smallAmount) * direction;
@@ -338,6 +347,7 @@ public class PlayerMovementHuman : MonoBehaviour
 	public void FinishLedgeClimb()
 	{
 		isClimbing = false;
+		FOVEnabler.SetActive(true);
 		animator.SetBool("canClimbLedge", isClimbing);
 		transform.position = pos2Climb;
 		changedPos = false;

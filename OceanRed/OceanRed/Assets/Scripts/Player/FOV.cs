@@ -75,6 +75,10 @@ public class FOV : MonoBehaviour
         this.viewDistance = viewDistance;
     }
 
+    public float GetViewDistance() {
+        return this.viewDistance;
+    }
+
     static Vector3 GetVectorFromAngle(float FOVangle)
     {
         float angleRad = FOVangle * (Mathf.PI/180f);
@@ -95,5 +99,9 @@ public class FOV : MonoBehaviour
 
     public void SetAngle(float New_angle){
         FOVangleSet = New_angle;
+    }
+
+    public float GetAngle(){
+        return FOVangleSet;
     }
 }
